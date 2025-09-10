@@ -167,3 +167,75 @@
   border: 3px solid rgba(255,255,255,.2);
   opacity: 0.5 !important;
 }
+
+
+/* Horizontal skills scroller (no-overlap) */
+.skills-strip {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  padding: .6rem 0;
+  margin-top: .75rem;
+
+  /* Edge fade */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+}
+
+.track {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: .5rem 1rem;
+
+  /* Prevent wrapping + size based on content */
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  width: max-content;
+
+  animation: skills-marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.skills-strip:hover .track { animation-play-state: paused; }
+
+/* Square card around each icon */
+.skill-card {
+  display: inline-grid;
+  place-items: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 18px rgba(0,0,0,.4);
+  border-color: rgba(255,255,255,.3);
+}
+
+.skill-card img {
+  width: 70px;
+  height: 70px;
+  display: block;
+  filter: invert(1) brightness(1.6);
+  opacity: .95;
+}
+
+/* One-track seamless loop (duplicate content inline) */
+@keyframes skills-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* move by half because content is duplicated once */
+}
+
+/* Reduced motion: disable animation, allow manual scroll */
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none !important; }
+  .skills-strip { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
