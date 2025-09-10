@@ -1,3 +1,4 @@
+# .github/workflows/deploy.yml
 name: Deploy to GitHub Pages
 on:
   push:
@@ -24,32 +25,33 @@ jobs:
           cache: npm
       - run: npm ci
 
-      # Detect repo name and dist folder from angular.json
-      - name: Detect names
+      # Detect the first Angular project and its outputPath (works even if renamed)
+      - name: Detect app and dist
         id: detect
         run: |
           APP=$(node -p "Object.keys(require('./angular.json').projects)[0]")
           DIST=$(node -p "require('./angular.json').projects['$APP'].architect.build.options.outputPath")
           echo "app=$APP"   >> $GITHUB_OUTPUT
           echo "dist=$DIST" >> $GITHUB_OUTPUT
-          echo "Detected app: $APP, dist: $DIST"
+          echo "Detected app: $APP"
+          echo "Detected dist: $DIST"
 
-      # Set proper base-href (username.github.io uses "/"; project pages use "/<repo>/")
+      # If repo is "username.github.io" => base="/", else base="/<repo>/"
       - name: Compute base-href
         id: base
         run: |
-          REPO_NAME=${GITHUB_REPOSITORY#*/}
-          if [ "$REPO_NAME" = "${GITHUB_REPOSITORY_OWNER}.github.io" ]; then
+          REPO=${GITHUB_REPOSITORY#*/}
+          if [ "$REPO" = "${GITHUB_REPOSITORY_OWNER}.github.io" ]; then
             echo "base=/" >> $GITHUB_OUTPUT
           else
-            echo "base=/$REPO_NAME/" >> $GITHUB_OUTPUT
+            echo "base=/$REPO/" >> $GITHUB_OUTPUT
           fi
-          echo "Using base-href: $(cat $GITHUB_OUTPUT | tail -1 | cut -d'=' -f2)"
+          echo "Using base-href: $(tail -n1 $GITHUB_OUTPUT | cut -d'=' -f2)"
 
       - name: Build
         run: npx ng build --configuration production --base-href "${{ steps.base.outputs.base }}"
 
-      # SPA fallback: copy index.html to 404.html to handle deep links
+      # SPA fallback for deep links
       - name: Add SPA fallback
         run: cp "${{ steps.detect.outputs.dist }}/index.html" "${{ steps.detect.outputs.dist }}/404.html"
 
