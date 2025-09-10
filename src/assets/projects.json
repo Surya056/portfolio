@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Sales Assistant & LKQ Integration Services",
+    "tech": [".NET 8", "Web API", "Azure", "SQL Server", "Angular"],
+    "description": "High‑performance APIs and responsive UI for pricing, availability, and systems integration across LKQ.",
+    "repo": "",
+    "link": ""
+  },
+  {
+    "title": "Event‑Driven Microservices (RabbitMQ / Azure Service Bus)",
+    "tech": [".NET", "Docker", "Kubernetes", "RabbitMQ", "Azure Service Bus"],
+    "description": "Event‑driven services enabling real‑time processing and scalability across distributed systems.",
+    "repo": "",
+    "link": ""
+  },
+  {
+    "title": "API Gateway (Ocelot & KrakenD)",
+    "tech": ["Ocelot", "KrakenD", "Auth0", "JWT"],
+    "description": "Secure routing, aggregation, and auth for microservices with tenant‑aware policies.",
+    "repo": "",
+    "link": ""
+  },
+  {
+    "title": "Sensis Vibe (Healthcare UI)",
+    "tech": ["ASP.NET MVC", "Web API", "Angular", "Azure", "MongoDB"],
+    "description": "Responsive Angular front‑end and .NET services for a healthcare system, focused on UX and performance.",
+    "repo": "",
+    "link": ""
+  },
+  {
+    "title": "Leasewave Reporting & Forecasting",
+    "tech": ["ASP.NET MVC", "SQL Server", "Web API"],
+    "description": "Base margin and forecasting modules with analytics for enterprise leasing platform.",
+    "repo": "",
+    "link": ""
+  },
+  {
+    "title": "Ganaseva – Rural Banking Platform",
+    "tech": [".NET Framework", "Web API", "SSRS/SSIS", "SQL Server", "WCF"],
+    "description": "Banking & financial workflows (loan processing, payments) with third‑party integrations (NPCI, AEPS, CIBIL).",
+    "repo": "",
+    "link": ""
+  }
+]
